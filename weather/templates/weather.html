@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather in {{ city }}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+
+    <h1>Weather in {{ city }}</h1>
+    <p>Temperature: {{ temperature }}°C</p>
+    <p>Description: {{ description }}</p>
+    <img src="https://www.weatherbit.io/static/img/icons/{{ icon }}.png" alt="Weather icon">
+
+    <h2>Next 24 Hours:</h2>
+    <ul>
+        {% for hour in hourly_forecast %}
+            <li>
+                Time: {{ hour.timestamp | date:"H:i" }} | Temp: {{ hour.temp }}°C | 
+                Description: {{ hour.weather.description }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Next 10 Days:</h2>
+    <ul>
+        {% for day in daily_forecast %}
+            <li>
+                Date: {{ day.datetime }} | Temp: {{ day.temp.max }}°C | 
+                Description: {{ day.weather.description }}
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
