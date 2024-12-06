@@ -1,41 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather in {{ city }}</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-        </ul>
-    </nav>
-
-    <h1>Weather in {{ city }}</h1>
-    <p>Temperature: {{ temperature }}°C</p>
-    <p>Description: {{ description }}</p>
-    <img src="https://www.weatherbit.io/static/img/icons/{{ icon }}.png" alt="Weather icon">
-
-    <h2>Next 24 Hours:</h2>
-    <ul>
-        {% for hour in hourly_forecast %}
-            <li>
-                Time: {{ hour.timestamp | date:"H:i" }} | Temp: {{ hour.temp }}°C | 
-                Description: {{ hour.weather.description }}
-            </li>
-        {% endfor %}
-    </ul>
-
-    <h2>Next 10 Days:</h2>
-    <ul>
-        {% for day in daily_forecast %}
-            <li>
-                Date: {{ day.datetime }} | Temp: {{ day.temp.max }}°C | 
-                Description: {{ day.weather.description }}
-            </li>
-        {% endfor %}
-    </ul>
-
-</body>
-</html>
+<div class="row d-flex justify-content-center py-5">
+    <div class="col-md-8 col-lg-6 col-xl-5">
+  
+      <div class="card text-body" style="border-radius: 35px;">
+        <div class="card-body p-4">
+  
+          <!-- City and Time -->
+          <div class="d-flex">
+            <h6 class="flex-grow-1">{{ city }}</h6> <!-- Dynamic city -->
+            <h6>{{ current_time }}</h6> <!-- Current time -->
+          </div>
+  
+          <!-- Temperature and Description -->
+          <div class="d-flex flex-column text-center mt-5 mb-4">
+            <h6 class="display-4 mb-0 font-weight-bold">{{ temperature }}°C</h6> <!-- Dynamic temperature -->
+            <span class="small" style="color: #868B94">{{ description }}</span> <!-- Dynamic weather description -->
+          </div>
+  
+          <!-- Wind Speed, Humidity, and Sunshine Duration -->
+          <div class="d-flex align-items-center">
+            <div class="flex-grow-1" style="font-size: 1rem;">
+              <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1">{{ wind_speed }} km/h</span></div> <!-- Dynamic wind speed -->
+              <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1">{{ humidity }}%</span></div> <!-- Dynamic humidity -->
+              <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1">{{ sunshine_duration }}h</span></div> <!-- Dynamic sunshine duration -->
+            </div>
+  
+            <!-- Weather Icon -->
+            <div>
+              <img src="https://www.weatherbit.io/static/img/icons/{{ icon }}.png" width="100px"> <!-- Dynamic icon -->
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

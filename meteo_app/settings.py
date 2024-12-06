@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&r9ool%f&00$(*clx27@k*ws6opu1&q$l!s%%$6e3okryksaas'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'your-domain.com']
+
 
 
 # Application definition
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'weather'
+    'weather',
+    'corsheaders',
+
     
 
 
@@ -51,7 +54,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (not recommended for production)
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React frontend
+    "https://your-frontend-domain.com",
+]
+
+
 
 ROOT_URLCONF = 'meteo_app.urls'
 

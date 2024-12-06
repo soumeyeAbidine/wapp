@@ -33,16 +33,26 @@ Including another URLconf
 # ]
 
 
-# meteo_app/urls.py
-from django.urls import path
-from weather.views import get_weather
+# # meteo_app/urls.py
+# from django.urls import path
+# from weather.views import get_weather
+
+# urlpatterns = [
+#     path('', get_weather, name='home'),  # Home page where the search bar is
+#     path('get-weather/', get_weather, name='get_weather'),  # The view to handle the weather search
+# ]
+
+
+# urls.py (dans le répertoire principal de votre projet)
+
+# wapp/urls.py (make sure this file is correctly including your app's URL configuration)
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', get_weather, name='home'),  # Home page where the search bar is
-    path('get-weather/', get_weather, name='get_weather'),  # The view to handle the weather search
+    path('admin/', admin.site.urls),
+    path('', include('weather.urls')),  # Include the URLs from the weather app
 ]
-
-
 
 
 

@@ -19,11 +19,22 @@
 
 
 from django.urls import path
-from weather.views import home, get_weather
+from . import views
 
 urlpatterns = [
-    path('', home, name='home'),  # Home page with search bar
-    path('get-weather/', get_weather, name='get_weather'),  # Weather search result page
+    path('', views.home, name='home'),  # Home page with the search form
+    path('get_weather/', views.get_weather, name='get_weather'),  # Weather data handling
 ]
 
 
+# urls.py (dans votre application Django)
+
+# urls.py in your weather app
+
+# weather/urls.py (make sure this is the correct file)
+# from django.urls import path
+# from . import views
+
+# urlpatterns = [
+#     path('api/get_weather/', views.get_weather, name='get_weather'),
+# ]

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        /* Ensure the body and html take the full viewport height */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling */
+            color: black; /* Use black text color for better readability */
+            background-color: #76cdeb;
+            z-index: -1;
+            position: absolute;
+        }
+
+        /* Full-screen background container for Lottie animation */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Keep the animation behind the content */
+            background-position: 0%;
+            background-size: cover;
+            overflow: visible;
+            background-blend-mode: hue;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+            overflow: visible;
+        }
+
+        /* Ensure the Lottie animation covers the entire background */
+        dotlottie-player {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the animation covers the entire page */
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Transparent background for navbar */
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-left .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar-right .search-form input {
+            padding: 8px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            margin-right: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent input background */
+            color: white;
+        }
+
+        .navbar-right .search-form button {
+            padding: 8px 16px;
+            border: none;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        main {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    min-height: 100vh;       
+    text-align: center;      
+    padding: 20px;
+    margin-left: 500px;
+    height: 100px;
+    padding: 2rem; 
+        }
+
+        /* Weather Information Container */
+        .weather {
+            background: rgba(255, 255, 255, 0.8); /* Light background with some transparency for readability */
+            padding: 80px;
+            max-width: 400px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Weather Icon and Temperature Styling */
+        .temp-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: red;
+            font-size: 18px;
+        }
+        
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15px;
+            color: #292d2e;
+            text-align: center;
+        }
+         
+    </style>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+<body>
+
+    <!-- Background Animation -->
+    <div class="background-container">
+        <dotlottie-player 
+            src="https://lottie.host/9a9eed27-2f2d-4cc8-8d36-6fcd68471eee/RxTgukXU95.lottie" 
+            background="transparent" 
+            speed="1" 
+            loop 
+            autoplay>
+        </dotlottie-player>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="logo">WeatherApp</a>
+        </div>
+        <div class="navbar-right">
+            <!-- Search Bar -->
+            <form action="/get_weather/" method="GET" class="search-form">
+                <input type="text" id="input" name="city" placeholder="Enter city or country" value="{{ city }}">
+                <button id="search" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    
+    <main>
+        {% if city %}
+        
+        
+        <div class="weather">
+            <h2 id="city">{{ city }}</h2>
+            <div class="temp-box">
+                <img src="http://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Weather icon" id="img">
+                <p id="temperature">{{ temperature }}°C</p>
+            </div>
+            <span id="clouds">{{ description }}</span>
+        </div>
+    
+        {% endif %}
+
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </main>
+
+</body>
+</html>
